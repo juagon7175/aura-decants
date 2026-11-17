@@ -1,5 +1,5 @@
 {
-  "name": "AURA DECANTS",
+  "name": "AURA Decants",
   "short_name": "AURA",
   "start_url": "./index.html",
   "display": "standalone",
@@ -7,7 +7,7 @@
   "theme_color": "#09090B",
   "icons": [
     {
-      "src": "hero-aura.jpg",
+      "src": "hero-aura.jpeg",
       "sizes": "512x512",
       "type": "image/jpeg"
     }
