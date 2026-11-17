@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA DECANTS | Alta Perfumería Fraccionada</title>
+    
+    <!-- =========================================
+         FAVICON E ÍCONO PARA CELULARES (PWA / APP)
+         ========================================= -->
+    <meta name="theme-color" content="#09090B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AURA Decants">
+    
+    <!-- Ícono en pestaña del navegador y pantalla de inicio -->
+    <link rel="icon" type="image/jpeg" href="hero-aura.jpg">
+    <link rel="apple-touch-icon" href="hero-aura.jpg">
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. VARIABLES DE PALETA (AURA DARK LUXURY)
+           ========================================= */
+        :root {
+            --bg-obsidian: #09090B;
+            --bg-glass: rgba(18, 18, 22, 0.78);
+            --bg-card: #121216;
+            --bg-card-hover: #17171C;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.24);
+            
+            --text-silver: #F4F4F6;
+            --text-smoke: #9CA3AF;
+            --text-muted: #6B7280;
+            
+            --accent-chrome: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+            --radius-pill: 999px;
+            --radius-soft: 24px;
+            --radius-card: 20px;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* =========================================
+           2. RESET Y ESTILOS BASE
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-silver);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* =========================================
+           3. BARRA DE NAVEGACIÓN CON ISOTIPO "A"
+           ========================================= */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1200px;
+            z-index: 1000;
+            background: var(--bg-glass);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-pill);
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--text-silver);
+        }
+
+        .brand-logo-svg {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.32em;
+            line-height: 1;
+        }
+
+        .brand-sub {
+            font-size: 0.55rem;
+            letter-spacing: 0.42em;
+            color: var(--text-smoke);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-smoke);
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-silver);
+        }
+
+        .cart-trigger {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+        }
+
+        .cart-trigger:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .cart-badge {
+            background: var(--text-silver);
+            color: var(--bg-obsidian);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: var(--radius-pill);
+        }
+
+        /* =========================================
+           4. HERO SECTION (PORTADA EDITORIAL)
+           ========================================= */
+        .hero {
+            min-height: 95vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 24px 60px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 5%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(9,9,11,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-smoke);
+            margin-bottom: 28px;
+        }
+
+        .hero-tag span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #E4E4E7;
+            box-shadow: 0 0 8px #FFFFFF;
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #FFFFFF 20%, #9CA3AF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-smoke);
+            max-width: 500px;
+            margin-bottom: 40px;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--accent-chrome);
+            color: var(--bg-obsidian);
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.16);
+        }
+
+        .btn-secondary {
+            color: var(--text-silver);
+            text-decoration: none;
+            padding: 16px 28px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border-subtle);
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .hero-visual {
+            position: relative;
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            aspect-ratio: 4 / 5;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-visual:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-obsidian) 0%, transparent 25%);
+            pointer-events: none;
+        }
+
+        /* =========================================
+           5. PASO 3: CATÁLOGO DE DECANTS (5ML / 10ML)
+           ========================================= */
+        .catalog-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px 100px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-smoke);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 600;
+            color: var(--text-silver);
+        }
+
+        /* Filtros de categoría */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 48px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-smoke);
+            padding: 10px 22px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-hover);
+            color: var(--text-silver);
+        }
+
+        /* Grilla de perfumes */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .product-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+
+        .product-house {
+            font-size: 0.7rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-smoke);
+            margin-bottom: 6px;
+        }
+
+        .product-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            margin-bottom: 14px;
+        }
+
+        .product-notes {
+            font-size: 0.82rem;
+            color: var(--text-smoke);
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .product-notes strong {
+            color: var(--text-silver);
+            font-weight: 500;
+        }
+
+        /* Selector 5 ml / 10 ml */
+        .size-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .size-option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: var(--text-smoke);
+        }
+
+        .size-option.selected {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--text-silver);
+            color: var(--text-silver);
+        }
+
+        .size-ml {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .size-sprays {
+            display: block;
+            font-size: 0.68rem;
+            opacity: 0.75;
+            margin-top: 2px;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            letter-spacing: 0.02em;
+        }
+
+        .btn-add {
+            background: var(--accent-chrome);
+            color: var(--bg-obsidian);
+            border: none;
+            padding: 11px 20px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-add:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* =========================================
+           6. RESPONSIVE (CELULARES)
+           ========================================= */
+        @media (max-width: 860px) {
+            .navbar {
+                padding: 10px 18px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 115px;
+                text-align: center;
+                gap: 40px;
+            }
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .hero-visual {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN CON EL ISOTIPO "A" -->
+    <nav class="navbar">
+        <a href="#" class="brand">
+            <!-- Isotipo vectorial inspirado en el logo de AURA -->
+            <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="chromeGrad" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFFFFF"/>
+                        <stop offset="50%" stop-color="#D4D4D8"/>
+                        <stop offset="100%" stop-color="#71717A"/>
+                    </linearGradient>
+                </defs>
+                <!-- Pierna izquierda de la A -->
+                <path d="M50 12L20 88H31L50 38L69 88H80L50 12Z" fill="url(#chromeGrad)"/>
+                <!-- Trazo curvo dinámico atravesando la A -->
+                <path d="M16 64C34 50 62 43 88 41C64 47 40 56 22 72L16 64Z" fill="#FFFFFF"/>
+            </svg>
+            <div class="brand-text">
+                <span class="brand-title">AURA</span>
+                <span class="brand-sub">Decants</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#catalogo">Colección</a></li>
+            <li><a href="#proceso">El Proceso</a></li>
+            <li><a href="#envios">Envíos</a></li>
+        </ul>
+
+        <button class="cart-trigger" id="openCartBtn">
+            <span>Selección</span>
+            <span class="cart-badge" id="cartCount">0</span>
+        </button>
+    </nav>
+
+    <!-- PORTADA (HERO SECTION) -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span></span>
+                Bella Vista • Muñiz • San Miguel &amp; Envíos Nacionales
+            </div>
+            
+            <h1 class="hero-title">
+                La esencia del lujo, a tu medida.
+            </h1>
+            
+            <p class="hero-description">
+                Fragancias 100% originales fraccionadas al momento en atomizadores de cristal de <strong>5 ml y 10 ml</strong>. Descubrí aromas icónicos antes de invertir en el frasco completo.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#catalogo" class="btn-primary">Explorar Catálogo</a>
+                <a href="#proceso" class="btn-secondary">¿Cómo funciona?</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <img src="hero-aura.jpg" alt="AURA Decants Frasco Principal">
+        </div>
+    </header>
+
+    <!-- PASO 3: CATÁLOGO INTERACTIVO -->
+    <section id="catalogo" class="catalog-section">
+        <div class="section-header">
+            <span class="section-eyebrow">Curaduría Exclusiva</span>
+            <h2 class="section-title">Nuestra Colección</h2>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterPerfumes('todos', this)">Todos</button>
+            <button class="filter-btn" onclick="filterPerfumes('nocturno', this)">Dulces &amp; Nocturnos</button>
+            <button class="filter-btn" onclick="filterPerfumes('fresco', this)">Frescos &amp; Versátiles</button>
+            <button class="filter-btn" onclick="filterPerfumes('arabe', this)">Árabes &amp; Intensos</button>
+        </div>
+
+        <!-- Grilla dinámica de productos -->
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- SCRIPT DEL CATÁLOGO (CON EJEMPLOS EDITABLES) -->
+    <script>
+        // Base de datos inicial de ejemplo (luego ustedes cargan los suyos y sus precios reales)
+        const perfumes = [
+            {
+                id: 1,
+                house: "Dior",
+                name: "Sauvage Elixir",
+                category: "nocturno",
+                notes: "Canela, nuez moscada, cardamomo, lavanda y sándalo.",
+                price5ml: 14500,
+                price10ml: 26500
+            },
+            {
+                id: 2,
+                house: "Jean Paul Gaultier",
+                name: "Le Male Elixir",
+                category: "nocturno",
+                notes: "Miel, tabaco, vainilla, haba tonka y lavanda.",
+                price5ml: 12000,
+                price10ml: 22000
+            },
+            {
+                id: 3,
+                house: "Lattafa",
+                name: "Khamrah Qahwa",
+                category: "arabe",
+                notes: "Café tostado, canela, cardamomo, praliné y vainilla.",
+                price5ml: 7500,
+                price10ml: 13500
+            },
+            {
+                id: 4,
+                house: "Bleu de Chanel",
+                name: "Parfum",
+                category: "fresco",
+                notes: "Cáscara de limón, bergamota, cedro y sándalo de Nueva Caledonia.",
+                price5ml: 15000,
+                price10ml: 27500
+            }
+        ];
+
+        // Guarda qué tamaño (5 o 10) está seleccionado en cada tarjeta
+        const selectedSizes = { 1: 5, 2: 5, 3: 5, 4: 5 };
+
+        function formatPrice(num) {
+            return "$" + num.toLocaleString("es-AR");
+        }
+
+        function renderProducts(filter = "todos") {
+            const grid = document.getElementById("productsGrid");
+            grid.innerHTML = "";
+
+            const filtered = filter === "todos" 
+                ? perfumes 
+                : perfumes.filter(p => p.category === filter);
+
+            filtered.forEach(perfume => {
+                const currentSize = selectedSizes[perfume.id] || 5;
+                const currentPrice = currentSize === 5 ? perfume.price5ml : perfume.price10ml;
+
+                const card = document.createElement("article");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <div>
+                        <div class="product-house">${perfume.house}</div>
+                        <h3 class="product-name">${perfume.name}</h3>
+                        <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
+                        
+                        <div class="size-selector">
+                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}" onclick="selectSize(${perfume.id}, 5)">
+                                <span class="size-ml">5 ml</span>
+                                <span class="size-sprays">~75 atomizaciones</span>
+                            </div>
+                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}" onclick="selectSize(${perfume.id}, 10)">
+                                <span class="size-ml">10 ml</span>
+                                <span class="size-sprays">~150 atomizaciones</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-footer">
+                        <span class="product-price" id="price-${perfume.id}">${formatPrice(currentPrice)}</span>
+                        <button class="btn-add" onclick="alert('En el Paso 5 conectaremos el carrito y WhatsApp!')">+ Agregar</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectSize(id, size) {
+            selectedSizes[id] = size;
+            const activeFilterBtn = document.querySelector(".filter-btn.active");
+            const filterText = activeFilterBtn.getAttribute("onclick").match(/'([^']+)'/)[1];
+            renderProducts(filterText);
+        }
+
+        function filterPerfumes(category, btnElement) {
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            btnElement.classList.add("active");
+            renderProducts(category);
+        }
+
+        // Inicializar catálogo
+        renderProducts();
+    </script>
+
+</body>
+</html>
