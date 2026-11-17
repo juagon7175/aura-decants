@@ -6,14 +6,14 @@
     <title>AURA DECANTS | Alta Perfumería Fraccionada</title>
     
     <!-- =========================================
-         FAVICON E ÍCONO PARA CELULARES (PWA / APP)
+         FAVICON, MANIFEST E ÍCONO PARA CELULARES
          ========================================= -->
     <meta name="theme-color" content="#09090B">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="AURA Decants">
     
-    <!-- Ícono en pestaña del navegador y pantalla de inicio -->
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="hero-aura.jpg">
     <link rel="apple-touch-icon" href="hero-aura.jpg">
 
@@ -28,7 +28,7 @@
            ========================================= */
         :root {
             --bg-obsidian: #09090B;
-            --bg-glass: rgba(18, 18, 22, 0.78);
+            --bg-glass: rgba(18, 18, 22, 0.82);
             --bg-card: #121216;
             --bg-card-hover: #17171C;
             --border-subtle: rgba(255, 255, 255, 0.08);
@@ -263,6 +263,8 @@
             text-transform: uppercase;
             transition: var(--transition-smooth);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.08);
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
@@ -318,12 +320,12 @@
         }
 
         /* =========================================
-           5. PASO 3: CATÁLOGO DE DECANTS (5ML / 10ML)
+           5. CATÁLOGO DE DECANTS (5ML / 10ML)
            ========================================= */
-        .catalog-section {
+        .section-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 24px 100px;
+            padding: 80px 24px;
         }
 
         .section-header {
@@ -347,7 +349,6 @@
             color: var(--text-silver);
         }
 
-        /* Filtros de categoría */
         .filter-bar {
             display: flex;
             justify-content: center;
@@ -376,7 +377,6 @@
             color: var(--text-silver);
         }
 
-        /* Grilla de perfumes */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -432,7 +432,6 @@
             font-weight: 500;
         }
 
-        /* Selector 5 ml / 10 ml */
         .size-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -505,7 +504,307 @@
         }
 
         /* =========================================
-           6. RESPONSIVE (CELULARES)
+           6. PASO 4: EL PROCESO & ENVÍOS (CONFIANZA)
+           ========================================= */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            padding: 32px 28px;
+            transition: var(--transition-smooth);
+        }
+
+        .pillar-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .pillar-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-smoke);
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .pillar-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            margin-bottom: 12px;
+        }
+
+        .pillar-desc {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text-smoke);
+            line-height: 1.7;
+        }
+
+        /* Banner de Zonas y Envíos */
+        .shipping-banner {
+            margin-top: 40px;
+            background: linear-gradient(145deg, #141418 0%, #0D0D10 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-soft);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .shipping-block h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--text-silver);
+        }
+
+        .shipping-block p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-smoke);
+            line-height: 1.7;
+        }
+
+        .shipping-divider {
+            border-left: 1px solid var(--border-subtle);
+            padding-left: 32px;
+        }
+
+        /* =========================================
+           7. PASO 5: CARRITO DESLIZABLE (WHATSAPP)
+           ========================================= */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            background: #0F0F12;
+            border-left: 1px solid var(--border-subtle);
+            z-index: 1600;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .cart-header h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+        }
+
+        .close-cart {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--text-smoke);
+            font-size: 0.9rem;
+            margin-top: 60px;
+            font-weight: 300;
+        }
+
+        .cart-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-item-info h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-silver);
+        }
+
+        .cart-item-info span {
+            font-size: 0.78rem;
+            color: var(--text-smoke);
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .cart-footer {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 20px;
+        }
+
+        .delivery-select-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-smoke);
+            margin-bottom: 8px;
+        }
+
+        .delivery-select {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            outline: none;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .cart-total-row span:first-child {
+            color: var(--text-smoke);
+            font-size: 0.9rem;
+        }
+
+        .cart-total-amount {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-silver);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background: var(--accent-chrome);
+            color: var(--bg-obsidian);
+            border: none;
+            padding: 16px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+        }
+
+        /* =========================================
+           8. FOOTER MINIMALISTA
+           ========================================= */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 48px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        footer p {
+            margin-bottom: 6px;
+        }
+
+        /* Toast de notificación al agregar */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1C1C22;
+            border: 1px solid var(--border-hover);
+            color: var(--text-silver);
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            font-size: 0.82rem;
+            z-index: 2000;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================
+           9. RESPONSIVE (CELULARES)
            ========================================= */
         @media (max-width: 860px) {
             .navbar {
@@ -531,6 +830,16 @@
                 max-width: 400px;
                 margin: 0 auto;
             }
+            .shipping-banner {
+                grid-template-columns: 1fr;
+                padding: 28px;
+            }
+            .shipping-divider {
+                border-left: none;
+                border-top: 1px solid var(--border-subtle);
+                padding-left: 0;
+                padding-top: 24px;
+            }
         }
     </style>
 </head>
@@ -539,7 +848,6 @@
     <!-- BARRA DE NAVEGACIÓN CON EL ISOTIPO "A" -->
     <nav class="navbar">
         <a href="#" class="brand">
-            <!-- Isotipo vectorial inspirado en el logo de AURA -->
             <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="chromeGrad" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
@@ -548,9 +856,7 @@
                         <stop offset="100%" stop-color="#71717A"/>
                     </linearGradient>
                 </defs>
-                <!-- Pierna izquierda de la A -->
                 <path d="M50 12L20 88H31L50 38L69 88H80L50 12Z" fill="url(#chromeGrad)"/>
-                <!-- Trazo curvo dinámico atravesando la A -->
                 <path d="M16 64C34 50 62 43 88 41C64 47 40 56 22 72L16 64Z" fill="#FFFFFF"/>
             </svg>
             <div class="brand-text">
@@ -565,7 +871,7 @@
             <li><a href="#envios">Envíos</a></li>
         </ul>
 
-        <button class="cart-trigger" id="openCartBtn">
+        <button class="cart-trigger" onclick="toggleCart(true)">
             <span>Selección</span>
             <span class="cart-badge" id="cartCount">0</span>
         </button>
@@ -598,14 +904,13 @@
         </div>
     </header>
 
-    <!-- PASO 3: CATÁLOGO INTERACTIVO -->
-    <section id="catalogo" class="catalog-section">
+    <!-- CATÁLOGO INTERACTIVO -->
+    <section id="catalogo" class="section-container">
         <div class="section-header">
             <span class="section-eyebrow">Curaduría Exclusiva</span>
             <h2 class="section-title">Nuestra Colección</h2>
         </div>
 
-        <!-- Filtros -->
         <div class="filter-bar">
             <button class="filter-btn active" onclick="filterPerfumes('todos', this)">Todos</button>
             <button class="filter-btn" onclick="filterPerfumes('nocturno', this)">Dulces &amp; Nocturnos</button>
@@ -613,13 +918,95 @@
             <button class="filter-btn" onclick="filterPerfumes('arabe', this)">Árabes &amp; Intensos</button>
         </div>
 
-        <!-- Grilla dinámica de productos -->
         <div class="products-grid" id="productsGrid"></div>
     </section>
 
-    <!-- SCRIPT DEL CATÁLOGO (CON EJEMPLOS EDITABLES) -->
+    <!-- PASO 4: EL PROCESO & ENVÍOS -->
+    <section id="proceso" class="section-container">
+        <div class="section-header">
+            <span class="section-eyebrow">Garantía Aura</span>
+            <h2 class="section-title">El Arte del Decant</h2>
+        </div>
+
+        <div class="pillars-grid">
+            <article class="pillar-card">
+                <span class="pillar-number">01 / AUTENTICIDAD</span>
+                <h3 class="pillar-title">100% Originales</h3>
+                <p class="pillar-desc">Cada decant se extrae directamente de botellas originales cerradas y verificadas. Sin diluciones ni alteraciones en su fórmula.</p>
+            </article>
+
+            <article class="pillar-card">
+                <span class="pillar-number">02 / PRESENTACIÓN</span>
+                <h3 class="pillar-title">Cristal &amp; Atomizador Fino</h3>
+                <p class="pillar-desc">Utilizamos envases de vidrio de 5 ml (~75 sprays) y 10 ml (~150 sprays) con válvula de bruma fina y etiqueta minimalista identificada.</p>
+            </article>
+
+            <article class="pillar-card">
+                <span class="pillar-number">03 / EXPERIENCIA</span>
+                <h3 class="pillar-title">Probá en tu Piel</h3>
+                <p class="pillar-desc">Un perfume evoluciona distinto en cada persona. Llevá tus fragancias favoritas a todos lados o testealas varios días antes de comprar el frasco.</p>
+            </article>
+        </div>
+
+        <div id="envios" class="shipping-banner">
+            <div class="shipping-block">
+                <h3>Zona Norte / Oeste</h3>
+                <p>Entregas coordinadas y puntos de encuentro en <strong>Bella Vista, Muñiz y San Miguel</strong>. Consultá disponibilidad en el día.</p>
+            </div>
+            <div class="shipping-block shipping-divider">
+                <h3>Envíos a Todo el País</h3>
+                <p>Despachamos a toda la Argentina con embalaje reforzado de protección (con costo de envío adicional a cargo del comprador según destino).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>AURA DECANTS</strong> — Alta Perfumería Fraccionada</p>
+        <p>Bella Vista • Muñiz • San Miguel, Buenos Aires</p>
+    </footer>
+
+    <!-- PASO 5: CARRITO DESLIZABLE -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Tu Selección</h3>
+            <button class="close-cart" onclick="toggleCart(false)">✕</button>
+        </div>
+
+        <div class="cart-items" id="cartItemsContainer">
+            <p class="cart-empty">Todavía no agregaste fragancias a tu selección.</p>
+        </div>
+
+        <div class="cart-footer">
+            <label for="deliveryZone" class="delivery-select-label">Modalidad de Entrega</label>
+            <select id="deliveryZone" class="delivery-select">
+                <option value="Zona Local (Bella Vista / Muñiz / San Miguel)">Bella Vista / Muñiz / San Miguel</option>
+                <option value="Envío Nacional (con cargo extra a cotizar)">Envío a todo el país (cargo extra)</option>
+            </select>
+
+            <div class="cart-total-row">
+                <span>Subtotal fragancias</span>
+                <span class="cart-total-amount" id="cartTotal">$0</span>
+            </div>
+
+            <button class="btn-whatsapp" onclick="sendWhatsAppOrder()">
+                Pedir por WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <!-- NOTIFICACIÓN FLOTANTE -->
+    <div class="toast" id="toast">Agregado a tu selección</div>
+
+    <!-- =========================================
+         JAVASCRIPT (CATÁLOGO + CARRITO WHATSAPP)
+         ========================================= -->
     <script>
-        // Base de datos inicial de ejemplo (luego ustedes cargan los suyos y sus precios reales)
+        // CONFIGURACIÓN DE WHATSAPP (Cambiar por el número real con código de país 549...)
+        const WHATSAPP_NUMBER = "5491100000000";
+
+        // CATÁLOGO DE PERFUMES (Fácil de editar y sumar nuevos)
         const perfumes = [
             {
                 id: 1,
@@ -659,8 +1046,10 @@
             }
         ];
 
-        // Guarda qué tamaño (5 o 10) está seleccionado en cada tarjeta
-        const selectedSizes = { 1: 5, 2: 5, 3: 5, 4: 5 };
+        const selectedSizes = {};
+        perfumes.forEach(p => selectedSizes[p.id] = 5);
+
+        let cart = [];
 
         function formatPrice(num) {
             return "$" + num.toLocaleString("es-AR");
@@ -699,8 +1088,8 @@
                     </div>
 
                     <div class="product-footer">
-                        <span class="product-price" id="price-${perfume.id}">${formatPrice(currentPrice)}</span>
-                        <button class="btn-add" onclick="alert('En el Paso 5 conectaremos el carrito y WhatsApp!')">+ Agregar</button>
+                        <span class="product-price">${formatPrice(currentPrice)}</span>
+                        <button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -720,7 +1109,110 @@
             renderProducts(category);
         }
 
-        // Inicializar catálogo
+        function addToCart(perfumeId) {
+            const perfume = perfumes.find(p => p.id === perfumeId);
+            const size = selectedSizes[perfumeId] || 5;
+            const price = size === 5 ? perfume.price5ml : perfume.price10ml;
+            const itemKey = `${perfumeId}-${size}`;
+
+            const existing = cart.find(item => item.key === itemKey);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    key: itemKey,
+                    house: perfume.house,
+                    name: perfume.name,
+                    size: size,
+                    price: price,
+                    qty: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`${perfume.name} (${size} ml) agregado`);
+        }
+
+        function changeQty(itemKey, delta) {
+            const index = cart.findIndex(item => item.key === itemKey);
+            if (index === -1) return;
+
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById("cartItemsContainer");
+            const countBadge = document.getElementById("cartCount");
+            const totalEl = document.getElementById("cartTotal");
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            countBadge.textContent = totalItems;
+            totalEl.textContent = formatPrice(totalAmount);
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="cart-empty">Todavía no agregaste fragancias a tu selección.</p>`;
+                return;
+            }
+
+            container.innerHTML = "";
+            cart.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.house} — ${item.name}</h4>
+                        <span>Decant ${item.size} ml • ${formatPrice(item.price * item.qty)}</span>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="changeQty('${item.key}', -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty('${item.key}', 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleCart(open) {
+            document.getElementById("cartOverlay").classList.toggle("open", open);
+            document.getElementById("cartDrawer").classList.toggle("open", open);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2400);
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                showToast("Agregá al menos un decant primero");
+                return;
+            }
+
+            const delivery = document.getElementById("deliveryZone").value;
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            let message = `Hola *AURA DECANTS*! 👋 Quisiera realizar el siguiente pedido:\n\n`;
+            cart.forEach(item => {
+                message += `• ${item.qty}x *${item.house} - ${item.name}* (${item.size} ml) — ${formatPrice(item.price * item.qty)}\n`;
+            });
+            message += `\n*Entrega:* ${delivery}`;
+            message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
+            message += `\n\n¿Me confirman disponibilidad y coordinamos?`;
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        // Inicializar
         renderProducts();
     </script>
 
