@@ -318,7 +318,7 @@
         }
 
         /* =========================================
-           5. CATÁLOGO DE DECANTS (5ML / 10ML)
+           5. CATÁLOGO DE DECANTS Y FOTOS DE FRASCOS
            ========================================= */
         .section-container {
             max-width: 1200px;
@@ -385,7 +385,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-card);
-            padding: 28px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -397,6 +397,30 @@
             background: var(--bg-card-hover);
             border-color: var(--border-hover);
             transform: translateY(-4px);
+        }
+
+        .product-img-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            background: #18181D;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover .product-img-box img {
+            transform: scale(1.05);
         }
 
         .product-house {
@@ -1009,7 +1033,7 @@
             <article class="pillar-card">
                 <span class="pillar-number">02 / PRESENTACIÓN</span>
                 <h3 class="pillar-title">Cristal &amp; Atomizador Fino</h3>
-                <p class="pillar-desc">Utilizamos envases de vidrio de 5 ml (~80 sprays) y 10 ml (~155 sprays) con válvula de bruma fina y etiqueta minimalista identificada.</p>
+                <p class="pillar-desc">Utilizamos envases de vidrio de 5 ml (~75 sprays) y 10 ml (~150 sprays) con válvula de bruma fina y etiqueta minimalista identificada.</p>
             </article>
 
             <article class="pillar-card">
@@ -1089,43 +1113,77 @@
          JAVASCRIPT (CATÁLOGO + CARRITO + AUDIO)
          ========================================= -->
     <script>
-        // CONFIGURACIÓN DE WHATSAPP (Cambiar por el número real con código de país 549...)
-        const WHATSAPP_NUMBER = "5491100000000";
+        // CONFIGURACIÓN DE WHATSAPP CON TU NÚMERO REAL
+        const WHATSAPP_NUMBER = "5491151012216";
 
-        // CATÁLOGO DE PERFUMES
+        // CATÁLOGO DE PERFUMES ACTUALIZADO
         const perfumes = [
-           {
-                id: 7,
-                house: "Lattafa",
-                name: "Yara Moi",
-                category: "arabe",
-                notes: "Jazmín y durazno, sobre un corazón cremoso de caramelo y ámbar, con fondo de pachulí y madera de sándalo. Dulce, cálido y sofisticado.",
-                price5ml: 7000,
-                price10ml: 12500
+            {
+                id: 1,
+                house: "Dior",
+                name: "Sauvage Elixir",
+                category: "nocturno",
+                image: "hero-aura.jpeg",
+                notes: "Canela, nuez moscada, cardamomo, lavanda y sándalo.",
+                price5ml: 14500,
+                price10ml: 26500
             },
-           {
-                id: 6,
-                house: "Lattafa",
-                name: "Khamrah",
-                category: "arabe",
-                notes: "Canela, nuez moscada, dátiles, praliné, vainilla, haba tonka y madera de ámbar. Dulce, especiado e intenso, ideal para noches frías.",
-                price5ml: 8000,
-                price10ml: 14500
+            {
+                id: 2,
+                house: "Jean Paul Gaultier",
+                name: "Le Male Elixir",
+                category: "nocturno",
+                image: "hero-aura.jpeg",
+                notes: "Miel, tabaco, vainilla, haba tonka y lavanda.",
+                price5ml: 12000,
+                price10ml: 22000
+            },
+            {
+                id: 4,
+                house: "Bleu de Chanel",
+                name: "Parfum",
+                category: "fresco",
+                image: "hero-aura.jpeg",
+                notes: "Cáscara de limón, bergamota, cedro y sándalo de Nueva Caledonia.",
+                price5ml: 15000,
+                price10ml: 27500
             },
             {
                 id: 5,
                 house: "Rasasi",
                 name: "Hawas Ice",
-                category: "arabe",
+                category: "fresco",
+                image: "hawas-ice.jpeg",
                 notes: "Manzana, bergamota y limón, con acordes marinos sobre un fondo de ámbar, almizcle y maderas. Fresco, frutal y versátil.",
                 price5ml: 8500,
                 price10ml: 15500
             },
             {
+                id: 6,
+                house: "Lattafa",
+                name: "Khamrah",
+                category: "arabe",
+                image: "khamrah.jpeg",
+                notes: "Canela, nuez moscada, dátiles, praliné, vainilla, haba tonka y madera de ámbar. Dulce, especiado e intenso, ideal para noches frías.",
+                price5ml: 8000,
+                price10ml: 14500
+            },
+            {
+                id: 7,
+                house: "Lattafa",
+                name: "Yara Moi",
+                category: "arabe",
+                image: "yara-moi.jpeg",
+                notes: "Jazmín y durazno, sobre un corazón cremoso de caramelo y ámbar, con fondo de pachulí y madera de sándalo. Dulce, cálido y sofisticado.",
+                price5ml: 7000,
+                price10ml: 12500
+            },
+            {
                 id: 8,
                 house: "Armaf",
                 name: "Odyssey Mandarin Sky",
-                category: "arabe",
+                category: "nocturno",
+                image: "mandarin-sky.jpeg",
                 notes: "Mandarina, naranja, azafrán y salvia, sobre un corazón dulce de caramelo y haba tonka, con fondo de ambroxan, vetiver y cedro. Cítrico, goloso y versátil.",
                 price5ml: 7000,
                 price10ml: 12500
@@ -1135,10 +1193,11 @@
                 house: "Lattafa",
                 name: "Asad",
                 category: "arabe",
+                image: "asad.jpeg",
                 notes: "Pimienta negra, tabaco y piña, sobre un corazón de café, pachulí e iris, con fondo de vainilla, ámbar y maderas secas. Especiado, intenso y nocturno.",
                 price5ml: 8000,
                 price10ml: 14500
-            },
+            }
         ];
 
         const selectedSizes = {};
@@ -1166,6 +1225,9 @@
                 card.className = "product-card";
                 card.innerHTML = `
                     <div>
+                        <div class="product-img-box">
+                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house} ${perfume.name}" loading="lazy">
+                        </div>
                         <div class="product-house">${perfume.house}</div>
                         <h3 class="product-name">${perfume.name}</h3>
                         <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
@@ -1251,114 +1313,4 @@
             totalEl.textContent = formatPrice(totalAmount);
 
             if (cart.length === 0) {
-                container.innerHTML = `<p class="cart-empty">Todavía no agregaste fragancias a tu selección.</p>`;
-                return;
-            }
-
-            container.innerHTML = "";
-            cart.forEach(item => {
-                const div = document.createElement("div");
-                div.className = "cart-item";
-                div.innerHTML = `
-                    <div class="cart-item-info">
-                        <h4>${item.house} — ${item.name}</h4>
-                        <span>Decant ${item.size} ml • ${formatPrice(item.price * item.qty)}</span>
-                    </div>
-                    <div class="cart-item-controls">
-                        <button class="qty-btn" onclick="changeQty('${item.key}', -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button class="qty-btn" onclick="changeQty('${item.key}', 1)">+</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function toggleCart(open) {
-            document.getElementById("cartOverlay").classList.toggle("open", open);
-            document.getElementById("cartDrawer").classList.toggle("open", open);
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById("toast");
-            toast.textContent = msg;
-            toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2400);
-        }
-
-        function sendWhatsAppOrder() {
-            if (cart.length === 0) {
-                showToast("Agregá al menos un decant primero");
-                return;
-            }
-
-            const delivery = document.getElementById("deliveryZone").value;
-            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-            let message = `Hola *AURA DECANTS*! 👋 Quisiera realizar el siguiente pedido:\n\n`;
-            cart.forEach(item => {
-                message += `• ${item.qty}x *${item.house} - ${item.name}* (${item.size} ml) — ${formatPrice(item.price * item.qty)}\n`;
-            });
-            message += `\n*Entrega:* ${delivery}`;
-            message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
-            message += `\n\n¿Me confirman disponibilidad y coordinamos?`;
-
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, "_blank");
-        }
-
-        // =========================================
-        // CONTROL DE AUDIO DEEP HOUSE
-        // =========================================
-        const auraAudio = document.getElementById("auraAudio");
-        const soundControl = document.getElementById("soundControl");
-        const soundLabel = document.getElementById("soundLabel");
-        let audioPlaying = false;
-        let userManuallyPaused = false;
-
-        auraAudio.volume = 0.35; // Volumen ambiente suave (35%)
-
-        function updateSoundUI(playing) {
-            audioPlaying = playing;
-            if (playing) {
-                soundControl.classList.add("playing");
-                soundLabel.textContent = "Deep House • On";
-            } else {
-                soundControl.classList.remove("playing");
-                soundLabel.textContent = "Sound Off";
-            }
-        }
-
-        function toggleAudio() {
-            if (audioPlaying) {
-                auraAudio.pause();
-                userManuallyPaused = true;
-                updateSoundUI(false);
-            } else {
-                auraAudio.play().then(() => {
-                    userManuallyPaused = false;
-                    updateSoundUI(true);
-                }).catch(() => {});
-            }
-        }
-
-        // Arranca automáticamente al primer clic o toque en la página
-        function initAudioOnFirstInteraction() {
-            if (!audioPlaying && !userManuallyPaused) {
-                auraAudio.play().then(() => {
-                    updateSoundUI(true);
-                }).catch(() => {});
-            }
-            document.removeEventListener("click", initAudioOnFirstInteraction);
-            document.removeEventListener("touchstart", initAudioOnFirstInteraction);
-        }
-
-        document.addEventListener("click", initAudioOnFirstInteraction);
-        document.addEventListener("touchstart", initAudioOnFirstInteraction);
-
-        // Inicializar catálogo
-        renderProducts();
-    </script>
-
-</body>
-</html>
+                container.
