@@ -405,22 +405,28 @@
             border-radius: 14px;
             overflow: hidden;
             margin-bottom: 18px;
-            background: #18181D;
+            background: #121216; /* Fondo oscuro de la tarjeta */
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .product-img-box img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Muestra el frasco entero sin cortarlo */
+            padding: 12px;
+            mix-blend-mode: luminosity; /* Reduce el brillo blanco de fondo */
+            filter: contrast(1.15) brightness(0.95); /* Integra los tonos con la estética oscura */
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .product-card:hover .product-img-box img {
-            transform: scale(1.05);
+            transform: scale(1.06);
+            mix-blend-mode: normal; /* Al pasar el mouse recupera todo su color original */
+            filter: none;
         }
 
         .product-house {
