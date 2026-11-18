@@ -399,7 +399,7 @@
             transform: translateY(-4px);
         }
 
-        .product-card.out-of-stock {
+        .product-card.fully-out {
             opacity: 0.65;
         }
 
@@ -503,6 +503,12 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: var(--text-silver);
             color: var(--text-silver);
+        }
+
+        .size-option.out-stock {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-style: dashed;
         }
 
         .size-ml {
@@ -1145,13 +1151,13 @@
     <div class="toast" id="toast">Agregado a tu selección</div>
 
     <!-- =========================================
-         JAVASCRIPT (CATÁLOGO + STOCK + CARRITO + AUDIO)
+         JAVASCRIPT (CATÁLOGO + STOCK INDEPENDIENTE + CARRITO)
          ========================================= -->
     <script>
         // CONFIGURACIÓN DE WHATSAPP CON TU NÚMERO REAL
         const WHATSAPP_NUMBER = "5491151012216";
 
-        // CATÁLOGO DE PERFUMES (inStock: true = disponible | false = agotado automáticamente)
+        // CATÁLOGO DE PERFUMES (stock5ml y stock10ml independientes)
         const perfumes = [
             {
                 id: 1,
@@ -1159,7 +1165,8 @@
                 name: "Sauvage Elixir",
                 category: "nocturno",
                 image: "hero-aura.jpeg",
-                inStock: false,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Canela, nuez moscada, cardamomo, lavanda y sándalo.",
                 price5ml: 14500,
                 price10ml: 26500
@@ -1170,7 +1177,8 @@
                 name: "Le Male Elixir",
                 category: "nocturno",
                 image: "hero-aura.jpeg",
-                inStock: false,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Miel, tabaco, vainilla, haba tonka y lavanda.",
                 price5ml: 12000,
                 price10ml: 22000
@@ -1181,7 +1189,8 @@
                 name: "Parfum",
                 category: "fresco",
                 image: "hero-aura.jpeg",
-                inStock: false,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Cáscara de limón, bergamota, cedro y sándalo de Nueva Caledonia.",
                 price5ml: 15000,
                 price10ml: 27500
@@ -1192,9 +1201,10 @@
                 name: "Hawas Ice",
                 category: "fresco",
                 image: "hawas-ice.jpg",
-                inStock: true,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Manzana, bergamota y limón, con acordes marinos sobre un fondo de ámbar, almizcle y maderas. Fresco, frutal y versátil.",
-                price5ml: Agotado,
+                price5ml: 8500,
                 price10ml: 15500
             },
             {
@@ -1203,9 +1213,10 @@
                 name: "Khamrah",
                 category: "arabe",
                 image: "khamrah.jpg",
-                inStock: true,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Canela, nuez moscada, dátiles, praliné, vainilla, haba tonka y madera de ámbar. Dulce, especiado e intenso, ideal para noches frías.",
-                price5ml: Agotado,
+                price5ml: 8000,
                 price10ml: 14500
             },
             {
@@ -1214,9 +1225,10 @@
                 name: "Yara Moi",
                 category: "arabe",
                 image: "yara-moi.jpg",
-                inStock: true,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Jazmín y durazno, sobre un corazón cremoso de caramelo y ámbar, con fondo de pachulí y madera de sándalo. Dulce, cálido y sofisticado.",
-                price5ml: Agotado,
+                price5ml: 7000,
                 price10ml: 12500
             },
             {
@@ -1225,9 +1237,10 @@
                 name: "Odyssey Mandarin Sky",
                 category: "nocturno",
                 image: "mandarin-sky.jpg",
-                inStock: true,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Mandarina, naranja, azafrán y salvia, sobre un corazón dulce de caramelo y haba tonka, con fondo de ambroxan, vetiver y cedro. Cítrico, goloso y versátil.",
-                price5ml: Agotado,
+                price5ml: 7000,
                 price10ml: 12500
             },
             {
@@ -1236,15 +1249,20 @@
                 name: "Asad",
                 category: "arabe",
                 image: "asad.jpg",
-                inStock: true,
+                stock5ml: true,
+                stock10ml: true,
                 notes: "Pimienta negra, tabaco y piña, sobre un corazón de café, pachulí e iris, con fondo de vainilla, ámbar y maderas secas. Especiado, intenso y nocturno.",
-                price5ml: Agotado,
+                price5ml: 8000,
                 price10ml: 14500
             }
         ];
 
         const selectedSizes = {};
-        perfumes.forEach(p => selectedSizes[p.id] = 5);
+        
+        // Inicializar tamaño por defecto (si 5ml no tiene stock, selecciona 10ml automáticamente)
+        perfumes.forEach(p => {
+            selectedSizes[p.id] = p.stock5ml ? 5 : (p.stock10ml ? 10 : 5);
+        });
 
         let cart = [];
 
@@ -1263,35 +1281,39 @@
             filtered.forEach(perfume => {
                 const currentSize = selectedSizes[perfume.id] || 5;
                 const currentPrice = currentSize === 5 ? perfume.price5ml : perfume.price10ml;
+                
+                // Saber si está totalmente agotado (ambas medidas en false)
+                const fullyOut = !perfume.stock5ml && !perfume.stock10ml;
 
                 const card = document.createElement("article");
-                card.className = `product-card ${!perfume.inStock ? 'out-of-stock' : ''}`;
+                card.className = `product-card ${fullyOut ? 'fully-out' : ''}`;
                 
                 card.innerHTML = `
                     <div>
                         <div class="product-img-box">
-                            ${!perfume.inStock ? '<span class="stock-badge-out">Agotado</span>' : ''}
-                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house} ${perfume.name}" loading="lazy">
+                            ${fullyOut ? '<span class="stock-badge-out">Agotado</span>' : ''}
+                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house}${perfume.name}" loading="lazy">
                         </div>
                         <div class="product-house">${perfume.house}</div>
                         <h3 class="product-name">${perfume.name}</h3>
                         <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
                         
                         <div class="size-selector">
-                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}" ${perfume.inStock ? `onclick="selectSize(${perfume.id}, 5)"` : ''}>
+                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}${!perfume.stock5ml ? 'out-stock' : ''}" 
+                                 ${perfume.stock5ml ? `onclick="selectSize(${perfume.id}, 5)"` : ''}>
                                 <span class="size-ml">5 ml</span>
-                                <span class="size-sprays">~75 atomizaciones</span>
+                                <span class="size-sprays">${perfume.stock5ml ? '~75 atomizaciones' : 'Agotado'}</span>
                             </div>
-                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}" ${perfume.inStock ? `onclick="selectSize(${perfume.id}, 10)"` : ''}>
+                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}${!perfume.stock10ml ? 'out-stock' : ''}" 
+                                 ${perfume.stock10ml ? `onclick="selectSize(${perfume.id}, 10)"` : ''}>
                                 <span class="size-ml">10 ml</span>
-                                <span class="size-sprays">~150 atomizaciones</span>
+                                <span class="size-sprays">${perfume.stock10ml ? '~150 atomizaciones' : 'Agotado'}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="product-footer">
-                        <span class="product-price">${formatPrice(currentPrice)}</span>
-                        ${perfume.inStock 
+                        <span class="product-price">${formatPrice(currentPrice)}</span>${!fullyOut 
                             ? `<button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>`
                             : `<button class="btn-add disabled" disabled>Sin Stock</button>`
                         }
@@ -1302,6 +1324,11 @@
         }
 
         function selectSize(id, size) {
+            const perfume = perfumes.find(p => p.id === id);
+            // Validar que el tamaño seleccionado tenga stock
+            if (size === 5 && !perfume.stock5ml) return;
+            if (size === 10 && !perfume.stock10ml) return;
+
             selectedSizes[id] = size;
             const activeFilterBtn = document.querySelector(".filter-btn.active");
             const filterText = activeFilterBtn.getAttribute("onclick").match(/'([^']+)'/)[1];
@@ -1316,9 +1343,18 @@
 
         function addToCart(perfumeId) {
             const perfume = perfumes.find(p => p.id === perfumeId);
-            if (!perfume.inStock) return; // Seguridad extra
-
             const size = selectedSizes[perfumeId] || 5;
+
+            // Validación estricta por medida
+            if (size === 5 && !perfume.stock5ml) {
+                showToast("El tamaño de 5 ml está agotado");
+                return;
+            }
+            if (size === 10 && !perfume.stock10ml) {
+                showToast("El tamaño de 10 ml está agotado");
+                return;
+            }
+
             const price = size === 5 ? perfume.price5ml : perfume.price10ml;
             const itemKey = `${perfumeId}-${size}`;
 
@@ -1373,7 +1409,7 @@
                 div.className = "cart-item";
                 div.innerHTML = `
                     <div class="cart-item-info">
-                        <h4>${item.house} — ${item.name}</h4>
+                        <h4>${item.house} —${item.name}</h4>
                         <span>Decant ${item.size} ml • ${formatPrice(item.price * item.qty)}</span>
                     </div>
                     <div class="cart-item-controls">
@@ -1409,67 +1445,9 @@
 
             let message = `Hola *AURA DECANTS*! 👋 Quisiera realizar el siguiente pedido:\n\n`;
             cart.forEach(item => {
-                message += `• ${item.qty}x *${item.house} - ${item.name}* (${item.size} ml) — ${formatPrice(item.price * item.qty)}\n`;
+                message += `• ${item.qty}x *${item.house} -${item.name}* (${item.size} ml) —${formatPrice(item.price * item.qty)}\n`;
             });
-            message += `\n*Entrega:* ${delivery}`;
-            message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
+            message += `\n*Entrega:* ${delivery}`; message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
             message += `\n\n¿Me confirman disponibilidad y coordinamos?`;
 
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, "_blank");
-        }
-
-        // =========================================
-        // CONTROL DE AUDIO DEEP HOUSE
-        // =========================================
-        const auraAudio = document.getElementById("auraAudio");
-        const soundControl = document.getElementById("soundControl");
-        const soundLabel = document.getElementById("soundLabel");
-        let audioPlaying = false;
-        let userManuallyPaused = false;
-
-        auraAudio.volume = 0.35;
-
-        function updateSoundUI(playing) {
-            audioPlaying = playing;
-            if (playing) {
-                soundControl.classList.add("playing");
-                soundLabel.textContent = "Deep House • On";
-            } else {
-                soundControl.classList.remove("playing");
-                soundLabel.textContent = "Sound Off";
-            }
-        }
-
-        function toggleAudio() {
-            if (audioPlaying) {
-                auraAudio.pause();
-                userManuallyPaused = true;
-                updateSoundUI(false);
-            } else {
-                auraAudio.play().then(() => {
-                    userManuallyPaused = false;
-                    updateSoundUI(true);
-                }).catch(() => {});
-            }
-        }
-
-        function initAudioOnFirstInteraction() {
-            if (!audioPlaying && !userManuallyPaused) {
-                auraAudio.play().then(() => {
-                    updateSoundUI(true);
-                }).catch(() => {});
-            }
-            document.removeEventListener("click", initAudioOnFirstInteraction);
-            document.removeEventListener("touchstart", initAudioOnFirstInteraction);
-        }
-
-        document.addEventListener("click", initAudioOnFirstInteraction);
-        document.addEventListener("touchstart", initAudioOnFirstInteraction);
-
-        // Inicializar catálogo
-        renderProducts();
-    </script>
-
-</body>
-</html>
+            const url = `
