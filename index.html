@@ -569,3 +569,1027 @@
         .size-option.out-stock {
             opacity: 0.4;
             cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .size-ml {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .size-sprays {
+            display: block;
+            font-size: 0.64rem;
+            opacity: 0.75;
+            margin-top: 1px;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            letter-spacing: 0.02em;
+        }
+
+        .btn-add {
+            background: var(--accent-chrome);
+            color: var(--bg-obsidian);
+            border: none;
+            padding: 9px 16px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-add:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-add.disabled {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none !important;
+        }
+
+        /* =========================================
+           6. EL PROCESO & ENVÍOS (COMPACTO)
+           ========================================= */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-card);
+            padding: 24px 22px;
+            transition: var(--transition-smooth);
+        }
+
+        .pillar-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .pillar-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-smoke);
+            letter-spacing: 0.18em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .pillar-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            margin-bottom: 8px;
+        }
+
+        .pillar-desc {
+            font-size: 0.84rem;
+            font-weight: 300;
+            color: var(--text-smoke);
+            line-height: 1.6;
+        }
+
+        .shipping-banner {
+            margin-top: 24px;
+            background: linear-gradient(145deg, rgba(20, 20, 24, 0.9) 0%, rgba(13, 13, 16, 0.9) 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-soft);
+            padding: 28px 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .shipping-block h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.12rem;
+            margin-bottom: 6px;
+            color: var(--text-silver);
+        }
+
+        .shipping-block p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--text-smoke);
+            line-height: 1.6;
+        }
+
+        .shipping-divider {
+            border-left: 1px solid var(--border-subtle);
+            padding-left: 28px;
+        }
+
+        /* =========================================
+           7. CARRITO DESLIZABLE (WHATSAPP)
+           ========================================= */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: #0F0F12;
+            border-left: 1px solid var(--border-subtle);
+            z-index: 1600;
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .cart-header h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+        }
+
+        .close-cart {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--text-smoke);
+            font-size: 0.88rem;
+            margin-top: 50px;
+            font-weight: 300;
+        }
+
+        .cart-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-info h4 {
+            font-size: 0.86rem;
+            font-weight: 500;
+            color: var(--text-silver);
+        }
+
+        .cart-item-info span {
+            font-size: 0.75rem;
+            color: var(--text-smoke);
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.82rem;
+        }
+
+        .cart-footer {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 16px;
+        }
+
+        .delivery-select-label {
+            display: block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-smoke);
+            margin-bottom: 6px;
+        }
+
+        .delivery-select {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-silver);
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+            outline: none;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .cart-total-row span:first-child {
+            color: var(--text-smoke);
+            font-size: 0.86rem;
+        }
+
+        .cart-total-amount {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-silver);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background: var(--accent-chrome);
+            color: var(--bg-obsidian);
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+        }
+
+        /* =========================================
+           8. REPRODUCTOR DEEP HOUSE DARK LUXURY
+           ========================================= */
+        .aura-sound-pill {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1400;
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-pill);
+            padding: 9px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .aura-sound-pill:hover {
+            border-color: var(--border-hover);
+            background: rgba(28, 28, 34, 0.9);
+        }
+
+        .aura-sound-pill.playing {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .eq-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 13px;
+            width: 15px;
+        }
+
+        .eq-bar {
+            width: 2.5px;
+            height: 4px;
+            background: var(--text-silver);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .aura-sound-pill.playing .eq-bar:nth-child(1) { animation: eqBounce 0.9s infinite ease-in-out; }
+        .aura-sound-pill.playing .eq-bar:nth-child(2) { animation: eqBounce 0.6s infinite ease-in-out 0.2s; }
+        .aura-sound-pill.playing .eq-bar:nth-child(3) { animation: eqBounce 1.1s infinite ease-in-out 0.1s; }
+        .aura-sound-pill.playing .eq-bar:nth-child(4) { animation: eqBounce 0.75s infinite ease-in-out 0.3s; }
+
+        @keyframes eqBounce {
+            0%, 100% { height: 4px; opacity: 0.5; }
+            50% { height: 13px; opacity: 1; }
+        }
+
+        .sound-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-smoke);
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .aura-sound-pill.playing .sound-label {
+            color: var(--text-silver);
+        }
+
+        /* =========================================
+           9. FOOTER & TOAST
+           ========================================= */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 32px 24px 76px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        footer p {
+            margin-bottom: 4px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            background: #1C1C22;
+            border: 1px solid var(--border-hover);
+            color: var(--text-silver);
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================
+           10. RESPONSIVE (CELULARES)
+           ========================================= */
+        @media (max-width: 860px) {
+            .navbar {
+                padding: 9px 16px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 90px;
+                padding-bottom: 24px;
+                text-align: center;
+                gap: 24px;
+            }
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .hero-visual {
+                max-width: 360px;
+                max-height: 260px;
+                margin: 0 auto;
+            }
+            .section-container {
+                padding: 28px 16px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 14px;
+            }
+            .shipping-banner {
+                grid-template-columns: 1fr;
+                padding: 22px;
+                gap: 18px;
+            }
+            .shipping-divider {
+                border-left: none;
+                border-top: 1px solid var(--border-subtle);
+                padding-left: 0;
+                padding-top: 18px;
+            }
+            .aura-sound-pill {
+                bottom: 14px;
+                left: 14px;
+                padding: 8px 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA DE HUMO / VAPOR SUTIL EN MOVIMIENTO -->
+    <div class="smoke-ambient" aria-hidden="true">
+        <div class="smoke-plume smoke-1"></div>
+        <div class="smoke-plume smoke-2"></div>
+        <div class="smoke-plume smoke-3"></div>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN CON EL ISOTIPO "A" -->
+    <nav class="navbar">
+        <a href="#" class="brand">
+            <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="chromeGrad" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#FFFFFF"/>
+                        <stop offset="50%" stop-color="#D4D4D8"/>
+                        <stop offset="100%" stop-color="#71717A"/>
+                    </linearGradient>
+                </defs>
+                <path d="M50 12L20 88H31L50 38L69 88H80L50 12Z" fill="url(#chromeGrad)"/>
+                <path d="M16 64C34 50 62 43 88 41C64 47 40 56 22 72L16 64Z" fill="#FFFFFF"/>
+            </svg>
+            <div class="brand-text">
+                <span class="brand-title">AURA</span>
+                <span class="brand-sub">Decants</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#catalogo">Colección</a></li>
+            <li><a href="#proceso">El Proceso</a></li>
+            <li><a href="#envios">Envíos</a></li>
+        </ul>
+
+        <button class="cart-trigger" onclick="toggleCart(true)">
+            <span>Selección</span>
+            <span class="cart-badge" id="cartCount">0</span>
+        </button>
+    </nav>
+
+    <!-- PORTADA (HERO SECTION COMPACTA) -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">
+                <span></span>
+                Bella Vista • Muñiz • San Miguel &amp; Envíos Nacionales
+            </div>
+            
+            <h1 class="hero-title">
+                La esencia del lujo, a tu medida.
+            </h1>
+            
+            <p class="hero-description">
+                Fragancias 100% originales fraccionadas al momento en atomizadores de cristal de <strong>5 ml y 10 ml</strong>. Descubrí aromas icónicos antes de invertir en el frasco completo.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#catalogo" class="btn-primary">Explorar Catálogo</a>
+                <a href="#proceso" class="btn-secondary">¿Cómo funciona?</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <img src="hero-aura.jpeg" alt="AURA Decants Frasco Principal">
+        </div>
+    </header>
+
+    <!-- CATÁLOGO INTERACTIVO -->
+    <section id="catalogo" class="section-container">
+        <div class="section-header">
+            <span class="section-eyebrow">Curaduría Exclusiva</span>
+            <h2 class="section-title">Nuestra Colección</h2>
+        </div>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterPerfumes('todos', this)">Todos</button>
+            <button class="filter-btn" onclick="filterPerfumes('nocturno', this)">Dulces &amp; Nocturnos</button>
+            <button class="filter-btn" onclick="filterPerfumes('fresco', this)">Frescos &amp; Versátiles</button>
+            <button class="filter-btn" onclick="filterPerfumes('arabe', this)">Árabes &amp; Intensos</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- EL PROCESO & ENVÍOS -->
+    <section id="proceso" class="section-container">
+        <div class="section-header">
+            <span class="section-eyebrow">Garantía Aura</span>
+            <h2 class="section-title">El Arte del Decant</h2>
+        </div>
+
+        <div class="pillars-grid">
+            <article class="pillar-card">
+                <span class="pillar-number">01 / AUTENTICIDAD</span>
+                <h3 class="pillar-title">100% Originales</h3>
+                <p class="pillar-desc">Cada decant se extrae directamente de botellas originales cerradas y verificadas. Sin diluciones ni alteraciones en su fórmula.</p>
+            </article>
+
+            <article class="pillar-card">
+                <span class="pillar-number">02 / PRESENTACIÓN</span>
+                <h3 class="pillar-title">Cristal &amp; Atomizador Fino</h3>
+                <p class="pillar-desc">Utilizamos envases de vidrio de 5 ml (~75 sprays) y 10 ml (~150 sprays) con válvula de bruma fina y etiqueta minimalista identificada.</p>
+            </article>
+
+            <article class="pillar-card">
+                <span class="pillar-number">03 / EXPERIENCIA</span>
+                <h3 class="pillar-title">Probá en tu Piel</h3>
+                <p class="pillar-desc">Un perfume evoluciona distinto en cada persona. Llevá tus fragancias favoritas a todos lados o testealas varios días antes de comprar el frasco.</p>
+            </article>
+        </div>
+
+        <div id="envios" class="shipping-banner">
+            <div class="shipping-block">
+                <h3>Zona Norte / Oeste</h3>
+                <p>Entregas coordinadas y puntos de encuentro en <strong>Bella Vista, Muñiz y San Miguel</strong>. Consultá disponibilidad en el día.</p>
+            </div>
+            <div class="shipping-block shipping-divider">
+                <h3>Envíos a Todo el País</h3>
+                <p>Despachamos a toda la Argentina con embalaje reforzado de protección (con costo de envío adicional a cargo del comprador según destino).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>AURA DECANTS</strong> — Alta Perfumería Fraccionada</p>
+        <p>Bella Vista • Muñiz • San Miguel, Buenos Aires</p>
+    </footer>
+
+    <!-- CONTROL DE SONIDO DEEP HOUSE -->
+    <div class="aura-sound-pill" id="soundControl" onclick="toggleAudio()">
+        <div class="eq-bars">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+        </div>
+        <span class="sound-label" id="soundLabel">Sound Off</span>
+    </div>
+
+    <audio id="auraAudio" loop preload="auto">
+        <source src="ambience.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- CARRITO DESLIZABLE -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Tu Selección</h3>
+            <button class="close-cart" onclick="toggleCart(false)">✕</button>
+        </div>
+
+        <div class="cart-items" id="cartItemsContainer">
+            <p class="cart-empty">Todavía no agregaste fragancias a tu selección.</p>
+        </div>
+
+        <div class="cart-footer">
+            <label for="deliveryZone" class="delivery-select-label">Modalidad de Entrega</label>
+            <select id="deliveryZone" class="delivery-select">
+                <option value="Zona Local (Bella Vista / Muñiz / San Miguel)">Bella Vista / Muñiz / San Miguel</option>
+                <option value="Envío Nacional (con cargo extra a cotizar)">Envío a todo el país (cargo extra)</option>
+            </select>
+
+            <div class="cart-total-row">
+                <span>Subtotal fragancias</span>
+                <span class="cart-total-amount" id="cartTotal">$0</span>
+            </div>
+
+            <button class="btn-whatsapp" onclick="sendWhatsAppOrder()">
+                Pedir por WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <!-- NOTIFICACIÓN FLOTANTE -->
+    <div class="toast" id="toast">Agregado a tu selección</div>
+
+    <!-- =========================================
+         JAVASCRIPT (CATÁLOGO + STOCK INDEPENDIENTE + CARRITO)
+         ========================================= -->
+    <script>
+        const WHATSAPP_NUMBER = "5491151012216";
+
+        const perfumes = [
+            {
+                id: 1,
+                house: "Dior",
+                name: "Sauvage Elixir",
+                category: "nocturno",
+                image: "hero-aura.jpeg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Canela, nuez moscada, cardamomo, lavanda y sándalo.",
+                price5ml: 14500,
+                price10ml: 26500
+            },
+            {
+                id: 2,
+                house: "Jean Paul Gaultier",
+                name: "Le Male Elixir",
+                category: "nocturno",
+                image: "hero-aura.jpeg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Miel, tabaco, vainilla, haba tonka y lavanda.",
+                price5ml: 12000,
+                price10ml: 22000
+            },
+            {
+                id: 4,
+                house: "Bleu de Chanel",
+                name: "Parfum",
+                category: "fresco",
+                image: "hero-aura.jpeg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Cáscara de limón, bergamota, cedro y sándalo de Nueva Caledonia.",
+                price5ml: 15000,
+                price10ml: 27500
+            },
+            {
+                id: 5,
+                house: "Rasasi",
+                name: "Hawas Ice",
+                category: "fresco",
+                image: "hawas-ice.jpg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Manzana, bergamota y limón, con acordes marinos sobre un fondo de ámbar, almizcle y maderas. Fresco, frutal y versátil.",
+                price5ml: 8500,
+                price10ml: 15500
+            },
+            {
+                id: 6,
+                house: "Lattafa",
+                name: "Khamrah",
+                category: "arabe",
+                image: "khamrah.jpg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Canela, nuez moscada, dátiles, praliné, vainilla, haba tonka y madera de ámbar. Dulce, especiado e intenso, ideal para noches frías.",
+                price5ml: 8000,
+                price10ml: 14500
+            },
+            {
+                id: 7,
+                house: "Lattafa",
+                name: "Yara Candy",
+                category: "arabe",
+                image: "yara-candy.jpg",
+                stock5ml: false,
+                stock10ml: true,
+                notes: "Fragancia árabe femenina de carácter dulce, frutal y envolvente. Combina matices frutales con un corazón floral y un fondo cálido y avainillado.",
+                price5ml: 7000,
+                price10ml: 9500
+            },
+            {
+                id: 8,
+                house: "Lattafa",
+                name: "Yara Moi",
+                category: "arabe",
+                image: "yara-moi.jpg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Jazmín y durazno, sobre un corazón cremoso de caramelo y ámbar, con fondo de pachulí y madera de sándalo. Dulce, cálido y sofisticado.",
+                price5ml: 7000,
+                price10ml: 12500
+            },
+            {
+                id: 9,
+                house: "Armaf",
+                name: "Odyssey Mandarin Sky",
+                category: "nocturno",
+                image: "mandarin-sky.jpg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Mandarina, naranja, azafrán y salvia, sobre un corazón dulce de caramelo y haba tonka, con fondo de ambroxan, vetiver y cedro. Cítrico, goloso y versátil.",
+                price5ml: 7000,
+                price10ml: 12500
+            },
+            {
+                id: 10,
+                house: "Lattafa",
+                name: "Asad",
+                category: "arabe",
+                image: "asad.jpg",
+                stock5ml: true,
+                stock10ml: true,
+                notes: "Pimienta negra, tabaco y piña, sobre un corazón de café, pachulí e iris, con fondo de vainilla, ámbar y maderas secas. Especiado, intenso y nocturno.",
+                price5ml: 8000,
+                price10ml: 14500
+            }
+        ];
+
+        const selectedSizes = {};
+        
+        perfumes.forEach(p => {
+            selectedSizes[p.id] = p.stock5ml ? 5 : (p.stock10ml ? 10 : 5);
+        });
+
+        let cart = [];
+
+        function formatPrice(num) {
+            return "$" + num.toLocaleString("es-AR");
+        }
+
+        function renderProducts(filter = "todos") {
+            const grid = document.getElementById("productsGrid");
+            grid.innerHTML = "";
+
+            const filtered = filter === "todos" 
+                ? perfumes 
+                : perfumes.filter(p => p.category === filter);
+
+            filtered.forEach(perfume => {
+                const currentSize = selectedSizes[perfume.id] || 5;
+                const currentPrice = currentSize === 5 ? perfume.price5ml : perfume.price10ml;
+                const fullyOut = !perfume.stock5ml && !perfume.stock10ml;
+
+                const card = document.createElement("article");
+                card.className = `product-card ${fullyOut ? 'fully-out' : ''}`;
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="product-img-box">
+                            ${fullyOut ? '<span class="stock-badge-out">Agotado</span>' : ''}
+                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house} ${perfume.name}" loading="lazy">
+                        </div>
+                        <div class="product-house">${perfume.house}</div>
+                        <h3 class="product-name">${perfume.name}</h3>
+                        <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
+                        
+                        <div class="size-selector">
+                            <div class="size-option ${currentSize === 5 ? 'selected' : ''} ${!perfume.stock5ml ? 'out-stock' : ''}" 
+                                 ${perfume.stock5ml ? `onclick="selectSize(${perfume.id}, 5)"` : ''}>
+                                <span class="size-ml">5 ml</span>
+                                <span class="size-sprays">${perfume.stock5ml ? '~75 atomizaciones' : 'Agotado'}</span>
+                            </div>
+                            <div class="size-option ${currentSize === 10 ? 'selected' : ''} ${!perfume.stock10ml ? 'out-stock' : ''}" 
+                                 ${perfume.stock10ml ? `onclick="selectSize(${perfume.id}, 10)"` : ''}>
+                                <span class="size-ml">10 ml</span>
+                                <span class="size-sprays">${perfume.stock10ml ? '~150 atomizaciones' : 'Agotado'}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-footer">
+                        <span class="product-price">${formatPrice(currentPrice)}</span>
+                        ${!fullyOut 
+                            ? `<button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>`
+                            : `<button class="btn-add disabled" disabled>Sin Stock</button>`
+                        }
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectSize(id, size) {
+            const perfume = perfumes.find(p => p.id === id);
+            if (size === 5 && !perfume.stock5ml) return;
+            if (size === 10 && !perfume.stock10ml) return;
+
+            selectedSizes[id] = size;
+            const activeFilterBtn = document.querySelector(".filter-btn.active");
+            const filterText = activeFilterBtn.getAttribute("onclick").match(/'([^']+)'/)[1];
+            renderProducts(filterText);
+        }
+
+        function filterPerfumes(category, btnElement) {
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            btnElement.classList.add("active");
+            renderProducts(category);
+        }
+
+        function addToCart(perfumeId) {
+            const perfume = perfumes.find(p => p.id === perfumeId);
+            const size = selectedSizes[perfumeId] || 5;
+
+            if (size === 5 && !perfume.stock5ml) {
+                showToast("El tamaño de 5 ml está agotado");
+                return;
+            }
+            if (size === 10 && !perfume.stock10ml) {
+                showToast("El tamaño de 10 ml está agotado");
+                return;
+            }
+
+            const price = size === 5 ? perfume.price5ml : perfume.price10ml;
+            const itemKey = `${perfumeId}-${size}`;
+
+            const existing = cart.find(item => item.key === itemKey);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    key: itemKey,
+                    house: perfume.house,
+                    name: perfume.name,
+                    size: size,
+                    price: price,
+                    qty: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`${perfume.name} (${size} ml) agregado`);
+        }
+
+        function changeQty(itemKey, delta) {
+            const index = cart.findIndex(item => item.key === itemKey);
+            if (index === -1) return;
+
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById("cartItemsContainer");
+            const countBadge = document.getElementById("cartCount");
+            const totalEl = document.getElementById("cartTotal");
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            countBadge.textContent = totalItems;
+            totalEl.textContent = formatPrice(totalAmount);
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="cart-empty">Todavía no agregaste fragancias a tu selección.</p>`;
+                return;
+            }
+
+            container.innerHTML = "";
+            cart.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <div class="cart-item-info">
+                        <h4>${item.house} — ${item.name}</h4>
+                        <span>Decant ${item.size} ml • ${formatPrice(item.price * item.qty)}</span>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="changeQty('${item.key}', -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty('${item.key}', 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleCart(open) {
+            document.getElementById("cartOverlay").classList.toggle("open", open);
+            document.getElementById("cartDrawer").classList.toggle("open", open);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2400);
+        }
+
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                showToast("Agregá al menos un decant primero");
+                return;
+            }
+
+            const delivery = document.getElementById("deliveryZone").value;
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            let message = `Hola *AURA DECANTS*! 👋 Quisiera realizar el siguiente pedido:\n\n`;
+            cart.forEach(item => {
+                message += `• ${item.qty}x *${item.house} - ${item.name}* (${item.size} ml) — ${formatPrice(item.price * item.qty)}\n`;
+            });
+            message += `\n*Entrega:* ${delivery}`;
+            message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
+            message += `\n\n¿Me confirman disponibilidad y coordinamos?`;
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        // =========================================
+        // CONTROL DE AUDIO DEEP HOUSE
+        // =========================================
+        const auraAudio = document.getElementById("auraAudio");
+        const soundControl = document.getElementById("soundControl");
+        const soundLabel = document.getElementById("soundLabel");
+        let audioPlaying = false;
+        let userManuallyPaused = false;
+
+        auraAudio.volume = 0.35;
+
+        function updateSoundUI(playing) {
+            audioPlaying = playing;
+            if (playing) {
+                soundControl.classList.add("playing");
+                soundLabel.textContent = "Deep House • On";
+            } else {
+                soundControl.classList.remove("playing");
+                soundLabel.textContent = "Sound Off";
+            }
+        }
+
+        function toggleAudio() {
+            if (audioPlaying) {
+                auraAudio.pause();
+                userManuallyPaused = true;
+                updateSoundUI(false);
+            } else {
+                auraAudio.play().then(() => {
+                    userManuallyPaused = false;
+                    updateSoundUI(true);
+                }).catch(() => {});
+            }
+        }
+
+        function initAudioOnFirstInteraction() {
+            if (!audioPlaying && !userManuallyPaused) {
+                auraAudio.play().then(() => {
+                    updateSoundUI(true);
+                }).catch(() => {});
+            }
+            document.removeEventListener("click", initAudioOnFirstInteraction);
+            document.removeEventListener("touchstart", initAudioOnFirstInteraction);
+        }
+
+        document.addEventListener("click", initAudioOnFirstInteraction);
+        document.addEventListener("touchstart", initAudioOnFirstInteraction);
+
+        // Inicializar catálogo
+        renderProducts();
+    </script>
+
+</body>
+</html>
