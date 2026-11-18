@@ -1259,7 +1259,7 @@
 
         const selectedSizes = {};
         
-        // Inicializar tamaño por defecto (si 5ml no tiene stock, selecciona 10ml automáticamente)
+        // Inicializar tamaño por defecto
         perfumes.forEach(p => {
             selectedSizes[p.id] = p.stock5ml ? 5 : (p.stock10ml ? 10 : 5);
         });
@@ -1282,7 +1282,6 @@
                 const currentSize = selectedSizes[perfume.id] || 5;
                 const currentPrice = currentSize === 5 ? perfume.price5ml : perfume.price10ml;
                 
-                // Saber si está totalmente agotado (ambas medidas en false)
                 const fullyOut = !perfume.stock5ml && !perfume.stock10ml;
 
                 const card = document.createElement("article");
@@ -1292,19 +1291,19 @@
                     <div>
                         <div class="product-img-box">
                             ${fullyOut ? '<span class="stock-badge-out">Agotado</span>' : ''}
-                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house}${perfume.name}" loading="lazy">
+                            <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house} ${perfume.name}" loading="lazy">
                         </div>
                         <div class="product-house">${perfume.house}</div>
                         <h3 class="product-name">${perfume.name}</h3>
                         <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
                         
                         <div class="size-selector">
-                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}${!perfume.stock5ml ? 'out-stock' : ''}" 
+                            <div class="size-option ${currentSize === 5 ? 'selected' : ''} ${!perfume.stock5ml ? 'out-stock' : ''}" 
                                  ${perfume.stock5ml ? `onclick="selectSize(${perfume.id}, 5)"` : ''}>
                                 <span class="size-ml">5 ml</span>
                                 <span class="size-sprays">${perfume.stock5ml ? '~75 atomizaciones' : 'Agotado'}</span>
                             </div>
-                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}${!perfume.stock10ml ? 'out-stock' : ''}" 
+                            <div class="size-option ${currentSize === 10 ? 'selected' : ''} ${!perfume.stock10ml ? 'out-stock' : ''}" 
                                  ${perfume.stock10ml ? `onclick="selectSize(${perfume.id}, 10)"` : ''}>
                                 <span class="size-ml">10 ml</span>
                                 <span class="size-sprays">${perfume.stock10ml ? '~150 atomizaciones' : 'Agotado'}</span>
@@ -1313,7 +1312,8 @@
                     </div>
 
                     <div class="product-footer">
-                        <span class="product-price">${formatPrice(currentPrice)}</span>${!fullyOut 
+                        <span class="product-price">${formatPrice(currentPrice)}</span>
+                        ${!fullyOut 
                             ? `<button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>`
                             : `<button class="btn-add disabled" disabled>Sin Stock</button>`
                         }
@@ -1325,7 +1325,6 @@
 
         function selectSize(id, size) {
             const perfume = perfumes.find(p => p.id === id);
-            // Validar que el tamaño seleccionado tenga stock
             if (size === 5 && !perfume.stock5ml) return;
             if (size === 10 && !perfume.stock10ml) return;
 
@@ -1345,7 +1344,6 @@
             const perfume = perfumes.find(p => p.id === perfumeId);
             const size = selectedSizes[perfumeId] || 5;
 
-            // Validación estricta por medida
             if (size === 5 && !perfume.stock5ml) {
                 showToast("El tamaño de 5 ml está agotado");
                 return;
@@ -1409,7 +1407,7 @@
                 div.className = "cart-item";
                 div.innerHTML = `
                     <div class="cart-item-info">
-                        <h4>${item.house} —${item.name}</h4>
+                        <h4>${item.house} — ${item.name}</h4>
                         <span>Decant ${item.size} ml • ${formatPrice(item.price * item.qty)}</span>
                     </div>
                     <div class="cart-item-controls">
@@ -1445,9 +1443,67 @@
 
             let message = `Hola *AURA DECANTS*! 👋 Quisiera realizar el siguiente pedido:\n\n`;
             cart.forEach(item => {
-                message += `• ${item.qty}x *${item.house} -${item.name}* (${item.size} ml) —${formatPrice(item.price * item.qty)}\n`;
+                message += `• ${item.qty}x *${item.house} - ${item.name}* (${item.size} ml) — ${formatPrice(item.price * item.qty)}\n`;
             });
-            message += `\n*Entrega:* ${delivery}`; message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
+            message += `\n*Entrega:* ${delivery}`;
+            message += `\n*Subtotal:* ${formatPrice(totalAmount)}`;
             message += `\n\n¿Me confirman disponibilidad y coordinamos?`;
 
-            const url = `
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
+        }
+
+        // =========================================
+        // CONTROL DE AUDIO DEEP HOUSE
+        // =========================================
+        const auraAudio = document.getElementById("auraAudio");
+        const soundControl = document.getElementById("soundControl");
+        const soundLabel = document.getElementById("soundLabel");
+        let audioPlaying = false;
+        let userManuallyPaused = false;
+
+        auraAudio.volume = 0.35;
+
+        function updateSoundUI(playing) {
+            audioPlaying = playing;
+            if (playing) {
+                soundControl.classList.add("playing");
+                soundLabel.textContent = "Deep House • On";
+            } else {
+                soundControl.classList.remove("playing");
+                soundLabel.textContent = "Sound Off";
+            }
+        }
+
+        function toggleAudio() {
+            if (audioPlaying) {
+                auraAudio.pause();
+                userManuallyPaused = true;
+                updateSoundUI(false);
+            } else {
+                auraAudio.play().then(() => {
+                    userManuallyPaused = false;
+                    updateSoundUI(true);
+                }).catch(() => {});
+            }
+        }
+
+        function initAudioOnFirstInteraction() {
+            if (!audioPlaying && !userManuallyPaused) {
+                auraAudio.play().then(() => {
+                    updateSoundUI(true);
+                }).catch(() => {});
+            }
+            document.removeEventListener("click", initAudioOnFirstInteraction);
+            document.removeEventListener("touchstart", initAudioOnFirstInteraction);
+        }
+
+        document.addEventListener("click", initAudioOnFirstInteraction);
+        document.addEventListener("touchstart", initAudioOnFirstInteraction);
+
+        // Inicializar catálogo
+        renderProducts();
+    </script>
+
+</body>
+</html>
