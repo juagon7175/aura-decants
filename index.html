@@ -6,7 +6,7 @@
     <title>AURA DECANTS | Alta Perfumería Fraccionada</title>
     
     <!-- FAVICON, MANIFEST E ÍCONO PARA CELULARES -->
-    <meta name="theme-color" content="#09090B">
+    <meta name="theme-color" content="#030305">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="AURA Decants">
@@ -25,12 +25,12 @@
            1. VARIABLES DE PALETA (AURA DARK LUXURY)
            ========================================= */
         :root {
-            --bg-obsidian: #050508;
-            --bg-glass: rgba(18, 18, 22, 0.84);
-            --bg-card: rgba(18, 18, 22, 0.88);
-            --bg-card-hover: rgba(24, 24, 30, 0.95);
-            --border-subtle: rgba(255, 255, 255, 0.09);
-            --border-hover: rgba(255, 255, 255, 0.26);
+            --bg-obsidian: #030305;
+            --bg-glass: rgba(18, 18, 22, 0.85);
+            --bg-card: rgba(18, 18, 22, 0.9);
+            --bg-card-hover: rgba(25, 25, 32, 0.96);
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.28);
             
             --text-silver: #F4F4F6;
             --text-smoke: #9CA3AF;
@@ -63,70 +63,70 @@
         }
 
         /* =========================================
-           EFECTO DE HUMO / VAPOR DINÁMICO REFORZADO
+           EFECTO DE HUMO / VAPOR DINÁMICO ALTA VISIBILIDAD
            ========================================= */
         .smoke-ambient {
             position: fixed;
             inset: 0;
             overflow: hidden;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         .smoke-plume {
             position: absolute;
             border-radius: 50%;
-            filter: blur(65px);
-            opacity: 0.55;
+            filter: blur(50px);
+            opacity: 0.65;
             will-change: transform;
         }
 
         .smoke-1 {
-            width: 60vw;
-            height: 60vw;
-            top: -10%;
-            left: -15%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(180, 180, 190, 0.06) 45%, transparent 75%);
-            animation: driftSmoke1 18s infinite alternate ease-in-out;
+            width: 50vw;
+            height: 50vw;
+            top: -5%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(190, 190, 205, 0.08) 50%, transparent 80%);
+            animation: driftSmoke1 14s infinite alternate ease-in-out;
         }
 
         .smoke-2 {
-            width: 65vw;
-            height: 65vw;
-            top: 35%;
-            right: -20%;
-            background: radial-gradient(circle, rgba(240, 240, 245, 0.14) 0%, rgba(130, 130, 145, 0.05) 50%, transparent 80%);
-            animation: driftSmoke2 24s infinite alternate ease-in-out;
+            width: 55vw;
+            height: 55vw;
+            top: 30%;
+            right: -15%;
+            background: radial-gradient(circle, rgba(240, 240, 250, 0.2) 0%, rgba(140, 140, 160, 0.07) 50%, transparent 80%);
+            animation: driftSmoke2 18s infinite alternate ease-in-out;
         }
 
         .smoke-3 {
-            width: 70vw;
-            height: 70vw;
-            bottom: -20%;
+            width: 60vw;
+            height: 60vw;
+            bottom: -15%;
             left: 10%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(160, 160, 175, 0.04) 45%, transparent 75%);
-            animation: driftSmoke3 20s infinite alternate ease-in-out;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(160, 160, 180, 0.06) 50%, transparent 80%);
+            animation: driftSmoke3 16s infinite alternate ease-in-out;
         }
 
         @keyframes driftSmoke1 {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            50% { transform: translate(15vw, 15vh) scale(1.25) rotate(15deg); }
-            100% { transform: translate(8vw, 25vh) scale(0.95) rotate(-10deg); }
+            50% { transform: translate(18vw, 15vh) scale(1.3) rotate(20deg); }
+            100% { transform: translate(8vw, 25vh) scale(0.9) rotate(-10deg); }
         }
 
         @keyframes driftSmoke2 {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-18vw, -12vh) scale(1.3); }
-            100% { transform: translate(-10vw, 15vh) scale(0.9); }
+            50% { transform: translate(-20vw, -15vh) scale(1.35); }
+            100% { transform: translate(-10vw, 18vh) scale(0.85); }
         }
 
         @keyframes driftSmoke3 {
             0% { transform: translate(0, 0) scale(0.95); }
-            50% { transform: translate(18vw, -15vh) scale(1.2); }
-            100% { transform: translate(-12vw, -8vh) scale(1.1); }
+            50% { transform: translate(22vw, -18vh) scale(1.25); }
+            100% { transform: translate(-15vw, -8vh) scale(1.1); }
         }
 
-        /* Capa superior para garantizar visibilidad del contenido */
+        /* Capa superior para garantizar la interacción de los elementos */
         nav, header, section, footer, .cart-drawer, .cart-overlay, .aura-sound-pill, .toast {
             position: relative;
             z-index: 2;
@@ -1052,7 +1052,7 @@
 </head>
 <body>
 
-    <!-- CAPA DE HUMO / VAPOR DINÁMICO REFORZADO -->
+    <!-- CAPA DE HUMO / VAPOR DINÁMICO ALTA VISIBILIDAD -->
     <div class="smoke-ambient" aria-hidden="true">
         <div class="smoke-plume smoke-1"></div>
         <div class="smoke-plume smoke-2"></div>
