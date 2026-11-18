@@ -318,7 +318,7 @@
         }
 
         /* =========================================
-           5. CATÁLOGO DE DECANTS Y FOTOS DE FRASCOS
+           5. CATÁLOGO DE DECANTS Y ESTADOS DE STOCK
            ========================================= */
         .section-container {
             max-width: 1200px;
@@ -399,13 +399,17 @@
             transform: translateY(-4px);
         }
 
+        .product-card.out-of-stock {
+            opacity: 0.65;
+        }
+
         .product-img-box {
             width: 100%;
             height: 220px;
             border-radius: 14px;
             overflow: hidden;
             margin-bottom: 18px;
-            background: #121216; /* Fondo oscuro de la tarjeta */
+            background: #121216;
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -416,17 +420,34 @@
         .product-img-box img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Muestra el frasco entero sin cortarlo */
+            object-fit: contain;
             padding: 12px;
-            mix-blend-mode: luminosity; /* Reduce el brillo blanco de fondo */
-            filter: contrast(1.15) brightness(0.95); /* Integra los tonos con la estética oscura */
+            mix-blend-mode: luminosity;
+            filter: contrast(1.15) brightness(0.95);
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .product-card:hover .product-img-box img {
             transform: scale(1.06);
-            mix-blend-mode: normal; /* Al pasar el mouse recupera todo su color original */
+            mix-blend-mode: normal;
             filter: none;
+        }
+
+        .stock-badge-out {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #EF4444;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            backdrop-filter: blur(4px);
+            z-index: 10;
         }
 
         .product-house {
@@ -529,6 +550,14 @@
         .btn-add:hover {
             transform: scale(1.03);
             box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-add.disabled {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none !important;
         }
 
         /* =========================================
@@ -1116,13 +1145,13 @@
     <div class="toast" id="toast">Agregado a tu selección</div>
 
     <!-- =========================================
-         JAVASCRIPT (CATÁLOGO + CARRITO + AUDIO)
+         JAVASCRIPT (CATÁLOGO + STOCK + CARRITO + AUDIO)
          ========================================= -->
     <script>
         // CONFIGURACIÓN DE WHATSAPP CON TU NÚMERO REAL
         const WHATSAPP_NUMBER = "5491151012216";
 
-        // CATÁLOGO DE PERFUMES ACTUALIZADO
+        // CATÁLOGO DE PERFUMES (inStock: true = disponible | false = agotado automáticamente)
         const perfumes = [
             {
                 id: 1,
@@ -1130,6 +1159,7 @@
                 name: "Sauvage Elixir",
                 category: "nocturno",
                 image: "hero-aura.jpeg",
+                inStock: true,
                 notes: "Canela, nuez moscada, cardamomo, lavanda y sándalo.",
                 price5ml: 14500,
                 price10ml: 26500
@@ -1140,6 +1170,7 @@
                 name: "Le Male Elixir",
                 category: "nocturno",
                 image: "hero-aura.jpeg",
+                inStock: true,
                 notes: "Miel, tabaco, vainilla, haba tonka y lavanda.",
                 price5ml: 12000,
                 price10ml: 22000
@@ -1150,6 +1181,7 @@
                 name: "Parfum",
                 category: "fresco",
                 image: "hero-aura.jpeg",
+                inStock: true,
                 notes: "Cáscara de limón, bergamota, cedro y sándalo de Nueva Caledonia.",
                 price5ml: 15000,
                 price10ml: 27500
@@ -1160,6 +1192,7 @@
                 name: "Hawas Ice",
                 category: "fresco",
                 image: "hawas-ice.jpg",
+                inStock: true,
                 notes: "Manzana, bergamota y limón, con acordes marinos sobre un fondo de ámbar, almizcle y maderas. Fresco, frutal y versátil.",
                 price5ml: 8500,
                 price10ml: 15500
@@ -1170,6 +1203,7 @@
                 name: "Khamrah",
                 category: "arabe",
                 image: "khamrah.jpg",
+                inStock: true,
                 notes: "Canela, nuez moscada, dátiles, praliné, vainilla, haba tonka y madera de ámbar. Dulce, especiado e intenso, ideal para noches frías.",
                 price5ml: 8000,
                 price10ml: 14500
@@ -1180,6 +1214,7 @@
                 name: "Yara Moi",
                 category: "arabe",
                 image: "yara-moi.jpg",
+                inStock: true,
                 notes: "Jazmín y durazno, sobre un corazón cremoso de caramelo y ámbar, con fondo de pachulí y madera de sándalo. Dulce, cálido y sofisticado.",
                 price5ml: 7000,
                 price10ml: 12500
@@ -1190,6 +1225,7 @@
                 name: "Odyssey Mandarin Sky",
                 category: "nocturno",
                 image: "mandarin-sky.jpg",
+                inStock: true,
                 notes: "Mandarina, naranja, azafrán y salvia, sobre un corazón dulce de caramelo y haba tonka, con fondo de ambroxan, vetiver y cedro. Cítrico, goloso y versátil.",
                 price5ml: 7000,
                 price10ml: 12500
@@ -1200,6 +1236,7 @@
                 name: "Asad",
                 category: "arabe",
                 image: "asad.jpg",
+                inStock: true,
                 notes: "Pimienta negra, tabaco y piña, sobre un corazón de café, pachulí e iris, con fondo de vainilla, ámbar y maderas secas. Especiado, intenso y nocturno.",
                 price5ml: 8000,
                 price10ml: 14500
@@ -1228,10 +1265,12 @@
                 const currentPrice = currentSize === 5 ? perfume.price5ml : perfume.price10ml;
 
                 const card = document.createElement("article");
-                card.className = "product-card";
+                card.className = `product-card ${!perfume.inStock ? 'out-of-stock' : ''}`;
+                
                 card.innerHTML = `
                     <div>
                         <div class="product-img-box">
+                            ${!perfume.inStock ? '<span class="stock-badge-out">Agotado</span>' : ''}
                             <img src="${perfume.image || 'hero-aura.jpeg'}" alt="${perfume.house} ${perfume.name}" loading="lazy">
                         </div>
                         <div class="product-house">${perfume.house}</div>
@@ -1239,11 +1278,11 @@
                         <p class="product-notes"><strong>Notas:</strong> ${perfume.notes}</p>
                         
                         <div class="size-selector">
-                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}" onclick="selectSize(${perfume.id}, 5)">
+                            <div class="size-option ${currentSize === 5 ? 'selected' : ''}" ${perfume.inStock ? `onclick="selectSize(${perfume.id}, 5)"` : ''}>
                                 <span class="size-ml">5 ml</span>
                                 <span class="size-sprays">~75 atomizaciones</span>
                             </div>
-                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}" onclick="selectSize(${perfume.id}, 10)">
+                            <div class="size-option ${currentSize === 10 ? 'selected' : ''}" ${perfume.inStock ? `onclick="selectSize(${perfume.id}, 10)"` : ''}>
                                 <span class="size-ml">10 ml</span>
                                 <span class="size-sprays">~150 atomizaciones</span>
                             </div>
@@ -1252,7 +1291,10 @@
 
                     <div class="product-footer">
                         <span class="product-price">${formatPrice(currentPrice)}</span>
-                        <button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>
+                        ${perfume.inStock 
+                            ? `<button class="btn-add" onclick="addToCart(${perfume.id})">+ Agregar</button>`
+                            : `<button class="btn-add disabled" disabled>Sin Stock</button>`
+                        }
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1274,6 +1316,8 @@
 
         function addToCart(perfumeId) {
             const perfume = perfumes.find(p => p.id === perfumeId);
+            if (!perfume.inStock) return; // Seguridad extra
+
             const size = selectedSizes[perfumeId] || 5;
             const price = size === 5 ? perfume.price5ml : perfume.price10ml;
             const itemKey = `${perfumeId}-${size}`;
@@ -1384,7 +1428,7 @@
         let audioPlaying = false;
         let userManuallyPaused = false;
 
-        auraAudio.volume = 0.35; // Volumen ambiente suave (35%)
+        auraAudio.volume = 0.35;
 
         function updateSoundUI(playing) {
             audioPlaying = playing;
@@ -1410,7 +1454,6 @@
             }
         }
 
-        // Arranca automáticamente al primer clic o toque en la página
         function initAudioOnFirstInteraction() {
             if (!audioPlaying && !userManuallyPaused) {
                 auraAudio.play().then(() => {
